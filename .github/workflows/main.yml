@@ -1,0 +1,63 @@
+# Step 1: Initialize Project
+dotnet new console -n CybersecurityBot
+cd CybersecurityBot
+echo "# CybersecurityBot - Console-based awareness chatbot" > README.md
+
+git init
+git add .
+git commit -m "Initial commit:Set up project structure and main files"
+
+# Step 2: Implement Greeting and ASCII Art
+# (Make changes in Program.cs to add greeting and ASCII art functionality)
+git add Program.cs
+git commit -m "Added greeting and user interaction functionality"
+
+# Step 3: Implement Cybersecurity Responses
+# (Add the responses dictionary and logic to respond to user queries in Program.cs)
+git add Program.cs
+git commit -m "Implemented basic cybersecurity responses and input validation"
+
+
+# Step 3: Add Unit Tests and CI/CD Workflow
+dotnet new xunit -n ConsoleApp4.Tests
+cd ConsoleApp4.Tests
+dotnet add reference ../ConsoleApp4/ConsoleApp4.csproj
+# (Add unit tests in UnitTest1.cs)
+mkdir -p ../.github/workflows
+echo "name: .NET Core CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '9.0.x' # Specify the .NET version you are using
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Run tests
+        run: dotnet test --no-build --verbosity normal
+
+      - name: Publish
+        run: dotnet publish --configuration Release --output ./publish" > ../.github/workflows/dotnet.yml
+
+git add ../.github/workflows/dotnet.yml ../ConsoleApp4.Tests
+git commit -m "Add unit tests and configure GitHub Actions for CI/CD"
