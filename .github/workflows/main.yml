@@ -1,0 +1,55 @@
+# Step 1: Initialize Project
+dotnet new console -n ConsoleApp4
+cd ConsoleApp4
+echo "# ConsoleApp4 - Cybersecurity Awareness Bot" > README.md
+git add .
+git commit -m "Initialize C# console application with basic structure"
+
+# Step 2: Implement Core Functionality
+# (Add your core functionality to Program.cs)
+git add Program.cs
+git commit -m "Implement core functionality for cybersecurity awareness bot"
+
+# Step 3: Add Unit Tests and CI/CD Workflow
+dotnet new xunit -n ConsoleApp4.Tests
+cd ConsoleApp4.Tests
+dotnet add reference ../ConsoleApp4/ConsoleApp4.csproj
+# (Add unit tests in UnitTest1.cs)
+mkdir -p ../.github/workflows
+echo "name: .NET Core CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '9.0.x' # Specify the .NET version you are using
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Run tests
+        run: dotnet test --no-build --verbosity normal
+
+      - name: Publish
+        run: dotnet publish --configuration Release --output ./publish" > ../.github/workflows/dotnet.yml
+
+git add ../.github/workflows/dotnet.yml ../ConsoleApp4.Tests
+git commit -m "Add unit tests and configure GitHub Actions for CI/CD"
