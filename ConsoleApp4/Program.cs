@@ -43,7 +43,7 @@ namespace ConsoleApp4
                 {
                     using (SoundPlayer player = new SoundPlayer(fullPath))
                     {
-                        player.PlaySync(); // Play the sound synchronously
+                        player.PlaySync(); // Play the sound synchronousl
                     }
                 }
                 else
